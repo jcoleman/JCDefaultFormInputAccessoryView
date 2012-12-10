@@ -1,5 +1,10 @@
 #import <UIKit/UIKit.h>
 
+typedef enum JCDefaultFormInputAccessoryViewDirectionButton {
+  JCDefaultFormInputAccessoryViewDirectionButtonPrevious = 1,
+  JCDefaultFormInputAccessoryViewDirectionButtonNext
+} JCDefaultFormInputAccessoryViewDirectionButton;
+
 @interface JCDefaultFormInputAccessoryView : UIView
 
 + (id) defaultFormInputAccessoryView;
@@ -41,11 +46,14 @@
 
 @property (strong, nonatomic) UIToolbar* toolbar;
 
+@property (readonly, nonatomic) JCDefaultFormInputAccessoryViewDirectionButton lastDirectionButtonTapped;
+
 - (BOOL) hasPreviousResponder;
 - (BOOL) hasNextResponder;
 
 - (void) selectPreviousResponder;
 - (void) selectNextResponder;
+- (void) selectNextResponderInCurrentDirection;
 - (void) selectResponderAtIndex:(NSUInteger)index;
 
 @end

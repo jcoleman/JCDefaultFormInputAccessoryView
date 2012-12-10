@@ -5,6 +5,8 @@
 
 @property (weak, nonatomic) JCDefaultFormInputAccessoryViewResponderItem* currentlySelectedResponder;
 
+@property (nonatomic) JCDefaultFormInputAccessoryViewDirectionButton lastDirectionButtonTapped;
+
 @property (nonatomic) CGRect originalFormViewFrame;
 @property (nonatomic) CGFloat keyboardHeight;
 @property (nonatomic) CGFloat keyboardAnimationDuration;
@@ -143,8 +145,10 @@
 
 - (void) previousNextControlValueChanged:(UISegmentedControl*)previousNextControl {
   if (previousNextControl.selectedSegmentIndex == 0) {
+    self.lastDirectionButtonTapped = JCDefaultFormInputAccessoryViewDirectionButtonPrevious;
     [self selectPreviousResponder];
   } else if (previousNextControl.selectedSegmentIndex == 1) {
+    self.lastDirectionButtonTapped = JCDefaultFormInputAccessoryViewDirectionButtonNext;
     [self selectNextResponder];
   }
 
@@ -216,6 +220,20 @@
     } else {
       // Do nothing. (No need to re-select the currently selected responder index.)
     }
+  }
+}
+
+- (void) selectNextResponderInCurrentDirection {
+  switch (self.lastDirectionButtonTapped) {
+    case JCDefaultFormInputAccessoryViewDirectionButtonPrevious:
+      [self selectPreviousResponder];
+      break;
+    case JCDefaultFormInputAccessoryViewDirectionButtonNext:
+      [self selectNextResponder];
+      break;
+    default:
+      NSLog(@"JCDefaultFormInputAccessoryView: Error (called selectNextResponderInCurrentDirection but previous/next button hasn't yet been triggered.)");
+      break;
   }
 }
 
