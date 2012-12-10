@@ -1,0 +1,329 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C4DA7B9C167644000039800F /* JCDefaultFormInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DA7B99167644000039800F /* JCDefaultFormInputAccessoryView.m */; };
+		C4DA7B9D167644000039800F /* JCDefaultFormInputAccessoryViewResponderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C4DA7B9B167644000039800F /* JCDefaultFormInputAccessoryViewResponderItem.m */; };
+		C4F0FD37167396D000767860 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0FD36167396D000767860 /* UIKit.framework */; };
+		C4F0FD39167396D000767860 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0FD38167396D000767860 /* Foundation.framework */; };
+		C4F0FD3B167396D000767860 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4F0FD3A167396D000767860 /* CoreGraphics.framework */; };
+		C4F0FD41167396D000767860 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C4F0FD3F167396D000767860 /* InfoPlist.strings */; };
+		C4F0FD43167396D000767860 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0FD42167396D000767860 /* main.m */; };
+		C4F0FD47167396D000767860 /* JCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0FD46167396D000767860 /* JCAppDelegate.m */; };
+		C4F0FD49167396D000767860 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F0FD48167396D000767860 /* Default.png */; };
+		C4F0FD4B167396D000767860 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F0FD4A167396D000767860 /* Default@2x.png */; };
+		C4F0FD4D167396D000767860 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C4F0FD4C167396D000767860 /* Default-568h@2x.png */; };
+		C4F0FD601673A37300767860 /* DemoStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4F0FD5F1673A37300767860 /* DemoStoryboard.storyboard */; };
+		C4F0FD641673ADA100767860 /* JCTableViewFormDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0FD631673ADA100767860 /* JCTableViewFormDemoController.m */; };
+		C4F0FD671673ADB500767860 /* JCViewFormDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F0FD661673ADB500767860 /* JCViewFormDemoController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C4DA7B98167644000039800F /* JCDefaultFormInputAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCDefaultFormInputAccessoryView.h; path = ../../Library/JCDefaultFormInputAccessoryView.h; sourceTree = "<group>"; };
+		C4DA7B99167644000039800F /* JCDefaultFormInputAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JCDefaultFormInputAccessoryView.m; path = ../../Library/JCDefaultFormInputAccessoryView.m; sourceTree = "<group>"; };
+		C4DA7B9A167644000039800F /* JCDefaultFormInputAccessoryViewResponderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCDefaultFormInputAccessoryViewResponderItem.h; path = ../../Library/JCDefaultFormInputAccessoryViewResponderItem.h; sourceTree = "<group>"; };
+		C4DA7B9B167644000039800F /* JCDefaultFormInputAccessoryViewResponderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JCDefaultFormInputAccessoryViewResponderItem.m; path = ../../Library/JCDefaultFormInputAccessoryViewResponderItem.m; sourceTree = "<group>"; };
+		C4F0FD32167396D000767860 /* JCDefaultFormInputAccessoryView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JCDefaultFormInputAccessoryView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4F0FD36167396D000767860 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		C4F0FD38167396D000767860 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		C4F0FD3A167396D000767860 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		C4F0FD3E167396D000767860 /* JCDefaultFormInputAccessoryView-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "JCDefaultFormInputAccessoryView-Info.plist"; sourceTree = "<group>"; };
+		C4F0FD40167396D000767860 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C4F0FD42167396D000767860 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C4F0FD44167396D000767860 /* JCDefaultFormInputAccessoryView-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JCDefaultFormInputAccessoryView-Prefix.pch"; sourceTree = "<group>"; };
+		C4F0FD45167396D000767860 /* JCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JCAppDelegate.h; sourceTree = "<group>"; };
+		C4F0FD46167396D000767860 /* JCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JCAppDelegate.m; sourceTree = "<group>"; };
+		C4F0FD48167396D000767860 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		C4F0FD4A167396D000767860 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		C4F0FD4C167396D000767860 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		C4F0FD5F1673A37300767860 /* DemoStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DemoStoryboard.storyboard; sourceTree = "<group>"; };
+		C4F0FD621673ADA100767860 /* JCTableViewFormDemoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCTableViewFormDemoController.h; sourceTree = "<group>"; };
+		C4F0FD631673ADA100767860 /* JCTableViewFormDemoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCTableViewFormDemoController.m; sourceTree = "<group>"; };
+		C4F0FD651673ADB500767860 /* JCViewFormDemoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCViewFormDemoController.h; sourceTree = "<group>"; };
+		C4F0FD661673ADB500767860 /* JCViewFormDemoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCViewFormDemoController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C4F0FD2F167396D000767860 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4F0FD37167396D000767860 /* UIKit.framework in Frameworks */,
+				C4F0FD39167396D000767860 /* Foundation.framework in Frameworks */,
+				C4F0FD3B167396D000767860 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C4F0FD27167396D000767860 = {
+			isa = PBXGroup;
+			children = (
+				C4F0FD3C167396D000767860 /* JCDefaultFormInputAccessoryView */,
+				C4F0FD35167396D000767860 /* Frameworks */,
+				C4F0FD33167396D000767860 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C4F0FD33167396D000767860 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C4F0FD32167396D000767860 /* JCDefaultFormInputAccessoryView.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C4F0FD35167396D000767860 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C4F0FD36167396D000767860 /* UIKit.framework */,
+				C4F0FD38167396D000767860 /* Foundation.framework */,
+				C4F0FD3A167396D000767860 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C4F0FD3C167396D000767860 /* JCDefaultFormInputAccessoryView */ = {
+			isa = PBXGroup;
+			children = (
+				C4F0FD611673AD7100767860 /* Demo Controllers */,
+				C4F0FD571673971900767860 /* Library */,
+				C4F0FD45167396D000767860 /* JCAppDelegate.h */,
+				C4F0FD46167396D000767860 /* JCAppDelegate.m */,
+				C4F0FD3D167396D000767860 /* Supporting Files */,
+				C4F0FD5F1673A37300767860 /* DemoStoryboard.storyboard */,
+			);
+			path = JCDefaultFormInputAccessoryView;
+			sourceTree = "<group>";
+		};
+		C4F0FD3D167396D000767860 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C4F0FD3E167396D000767860 /* JCDefaultFormInputAccessoryView-Info.plist */,
+				C4F0FD3F167396D000767860 /* InfoPlist.strings */,
+				C4F0FD42167396D000767860 /* main.m */,
+				C4F0FD44167396D000767860 /* JCDefaultFormInputAccessoryView-Prefix.pch */,
+				C4F0FD48167396D000767860 /* Default.png */,
+				C4F0FD4A167396D000767860 /* Default@2x.png */,
+				C4F0FD4C167396D000767860 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C4F0FD571673971900767860 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				C4DA7B98167644000039800F /* JCDefaultFormInputAccessoryView.h */,
+				C4DA7B99167644000039800F /* JCDefaultFormInputAccessoryView.m */,
+				C4DA7B9A167644000039800F /* JCDefaultFormInputAccessoryViewResponderItem.h */,
+				C4DA7B9B167644000039800F /* JCDefaultFormInputAccessoryViewResponderItem.m */,
+			);
+			name = Library;
+			sourceTree = "<group>";
+		};
+		C4F0FD611673AD7100767860 /* Demo Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C4F0FD621673ADA100767860 /* JCTableViewFormDemoController.h */,
+				C4F0FD631673ADA100767860 /* JCTableViewFormDemoController.m */,
+				C4F0FD651673ADB500767860 /* JCViewFormDemoController.h */,
+				C4F0FD661673ADB500767860 /* JCViewFormDemoController.m */,
+			);
+			name = "Demo Controllers";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C4F0FD31167396D000767860 /* JCDefaultFormInputAccessoryView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C4F0FD50167396D000767860 /* Build configuration list for PBXNativeTarget "JCDefaultFormInputAccessoryView" */;
+			buildPhases = (
+				C4F0FD2E167396D000767860 /* Sources */,
+				C4F0FD2F167396D000767860 /* Frameworks */,
+				C4F0FD30167396D000767860 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JCDefaultFormInputAccessoryView;
+			productName = JCDefaultFormInputAccessoryView;
+			productReference = C4F0FD32167396D000767860 /* JCDefaultFormInputAccessoryView.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C4F0FD29167396D000767860 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = JC;
+				LastUpgradeCheck = 0450;
+				ORGANIZATIONNAME = "James Coleman";
+			};
+			buildConfigurationList = C4F0FD2C167396D000767860 /* Build configuration list for PBXProject "JCDefaultFormInputAccessoryView" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C4F0FD27167396D000767860;
+			productRefGroup = C4F0FD33167396D000767860 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C4F0FD31167396D000767860 /* JCDefaultFormInputAccessoryView */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C4F0FD30167396D000767860 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4F0FD41167396D000767860 /* InfoPlist.strings in Resources */,
+				C4F0FD49167396D000767860 /* Default.png in Resources */,
+				C4F0FD4B167396D000767860 /* Default@2x.png in Resources */,
+				C4F0FD4D167396D000767860 /* Default-568h@2x.png in Resources */,
+				C4F0FD601673A37300767860 /* DemoStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C4F0FD2E167396D000767860 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C4F0FD43167396D000767860 /* main.m in Sources */,
+				C4F0FD47167396D000767860 /* JCAppDelegate.m in Sources */,
+				C4F0FD641673ADA100767860 /* JCTableViewFormDemoController.m in Sources */,
+				C4F0FD671673ADB500767860 /* JCViewFormDemoController.m in Sources */,
+				C4DA7B9C167644000039800F /* JCDefaultFormInputAccessoryView.m in Sources */,
+				C4DA7B9D167644000039800F /* JCDefaultFormInputAccessoryViewResponderItem.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C4F0FD3F167396D000767860 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C4F0FD40167396D000767860 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C4F0FD4E167396D000767860 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C4F0FD4F167396D000767860 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C4F0FD51167396D000767860 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "JCDefaultFormInputAccessoryView/JCDefaultFormInputAccessoryView-Prefix.pch";
+				INFOPLIST_FILE = "JCDefaultFormInputAccessoryView/JCDefaultFormInputAccessoryView-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C4F0FD52167396D000767860 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "JCDefaultFormInputAccessoryView/JCDefaultFormInputAccessoryView-Prefix.pch";
+				INFOPLIST_FILE = "JCDefaultFormInputAccessoryView/JCDefaultFormInputAccessoryView-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C4F0FD2C167396D000767860 /* Build configuration list for PBXProject "JCDefaultFormInputAccessoryView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C4F0FD4E167396D000767860 /* Debug */,
+				C4F0FD4F167396D000767860 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C4F0FD50167396D000767860 /* Build configuration list for PBXNativeTarget "JCDefaultFormInputAccessoryView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C4F0FD51167396D000767860 /* Debug */,
+				C4F0FD52167396D000767860 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C4F0FD29167396D000767860 /* Project object */;
+}
