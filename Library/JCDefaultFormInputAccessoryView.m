@@ -75,37 +75,24 @@
 
 - (void) textFieldOrTextViewDidBeginEditing:(NSNotification*)notification {
   UIView* respondingView = notification.object;
-  NSUInteger indexOfSelectedResponder;
-  BOOL indexFound = NO;
-  if ([self.formView isKindOfClass:[UITableView class]]) {
-    for (UITableViewCell* cell in [(UITableView*)self.formView visibleCells]) {
-      if ([respondingView isDescendantOfView:cell]) {
-        NSIndexPath* cellIndexPath = [(UITableView*)self.formView indexPathForCell:(UITableViewCell*)respondingView];
-        indexOfSelectedResponder = [self.responders indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-          return [cellIndexPath isEqual:((JCDefaultFormInputAccessoryViewResponderItem*)obj).containingTableViewIndexPath];
-        }];
-        indexFound = (indexOfSelectedResponder != NSNotFound);
-      }
-    }
-  }
 
-  if (!indexFound) {
-    indexOfSelectedResponder = [self.responders indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
-      JCDefaultFormInputAccessoryViewResponderItem* item = (JCDefaultFormInputAccessoryViewResponderItem*)obj;
-      return item.respondingViewGetter && item.respondingViewGetter() == respondingView;
-    }];
-    indexFound = (indexOfSelectedResponder != NSNotFound);
-  }
-
-  if (indexFound) {
-    self.currentlySelectedResponder = [self.responders objectAtIndex:indexOfSelectedResponder];
-    [self updatePreviousNextButtonStatus];
+  if (self.currentlySelectedResponder.respondingViewGetter
+      && self.currentlySelectedResponder.respondingViewGetter() == respondingView) {
+    return;
+  } else {
+    [self setCurrentlySelectedResponderForInputView:respondingView];
   }
 }
 
 - (void) keyboardWillShow:(NSNotification*)notification {
   if (!self.formView.window) {
     return;
+  }
+
+  UIView* firstResponder;
+  if (!self.currentlySelectedResponder
+      && (firstResponder = [self findFirstResponderInView:self.formView])) {
+    [self setCurrentlySelectedResponderForInputView:firstResponder];
   }
 
   if (CGRectEqualToRect(self.originalFormViewFrame, CGRectZero)) {
@@ -153,6 +140,53 @@
   }
 
   [self updatePreviousNextButtonStatus];
+}
+
+- (UIView*) findFirstResponderInView:(UIView*)view {
+  if (view) {
+    if (view.isFirstResponder) {
+      return view;
+    } else {
+      for (UIView* subview in view.subviews) {
+        UIView* firstResponder = [self findFirstResponderInView:subview];
+        if (firstResponder) {
+          return firstResponder;
+        }
+      }
+      return nil;
+    }
+  } else {
+    return nil;
+  }
+}
+
+- (void) setCurrentlySelectedResponderForInputView:(UIView*)respondingView {
+  NSUInteger indexOfSelectedResponder;
+  BOOL indexFound = NO;
+  if ([self.formView isKindOfClass:[UITableView class]]) {
+    for (UITableViewCell* cell in [(UITableView*)self.formView visibleCells]) {
+      if ([respondingView isDescendantOfView:cell]) {
+        NSIndexPath* cellIndexPath = [(UITableView*)self.formView indexPathForCell:(UITableViewCell*)respondingView];
+        indexOfSelectedResponder = [self.responders indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+          return [cellIndexPath isEqual:((JCDefaultFormInputAccessoryViewResponderItem*)obj).containingTableViewIndexPath];
+        }];
+        indexFound = (indexOfSelectedResponder != NSNotFound);
+      }
+    }
+  }
+
+  if (!indexFound) {
+    indexOfSelectedResponder = [self.responders indexOfObjectPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+      JCDefaultFormInputAccessoryViewResponderItem* item = (JCDefaultFormInputAccessoryViewResponderItem*)obj;
+      return item.respondingViewGetter && item.respondingViewGetter() == respondingView;
+    }];
+    indexFound = (indexOfSelectedResponder != NSNotFound);
+  }
+
+  if (indexFound) {
+    self.currentlySelectedResponder = [self.responders objectAtIndex:indexOfSelectedResponder];
+    [self updatePreviousNextButtonStatus];
+  }
 }
 
 - (void) doneButtonTapped:(UIBarButtonItem*)doneButton {
