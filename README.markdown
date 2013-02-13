@@ -80,7 +80,7 @@ Acknowledgements
 
 This project was inspired by Cédric Luthi's XCDFormInputAccessoryView project which can be found at https://github.com/0xced/XCDFormInputAccessoryView/
 
-Licence
+License
 -------
 
 This project is licensed under the MIT license. All copyright rights are retained by myself.
