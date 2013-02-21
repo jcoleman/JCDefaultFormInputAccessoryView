@@ -22,55 +22,75 @@
 }
 
 - (id) init {
+  return [self initWithDelegate:self];
+}
+
+- (id) initWithDelegate:(id<JCDefaultFormInputAccessoryViewDelegate>)delegate {
   self = [super init];
   if (self) {
-    self.responders = [NSMutableArray new];
-
-    self.toolbar = [UIToolbar new];
-    self.toolbar.barStyle = UIBarStyleBlack;
-    self.toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-
-    UISegmentedControl* previousNextControl = [[UISegmentedControl alloc] initWithItems:@[@"Previous", @"Next"]];
-    previousNextControl.segmentedControlStyle = UISegmentedControlStyleBar;
-    previousNextControl.momentary = YES;
-    [previousNextControl addTarget:self action:@selector(previousNextControlValueChanged:) forControlEvents:UIControlEventValueChanged];
-
-    self.toolbar.items = @[
-      [[UIBarButtonItem alloc] initWithCustomView:previousNextControl],
-      [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonTapped:)]
-    ];
-
-    [self addSubview:self.toolbar];
-
-    CGSize size = [self.toolbar sizeThatFits:CGSizeZero];
-    self.frame = self.toolbar.frame = CGRectMake(0, 0, size.width, size.height);
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(textFieldOrTextViewDidBeginEditing:)
-                                                 name:UITextFieldTextDidBeginEditingNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(textFieldOrTextViewDidBeginEditing:)
-                                                 name:UITextViewTextDidBeginEditingNotification
-                                               object:nil];
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-
-    self.originalFormViewFrame = CGRectZero;
+    [self setup];
+    self.delegate = delegate;
   }
   return self;
 }
 
+- (void) setup {
+  self.responders = [NSMutableArray new];
+
+  self.toolbar = [UIToolbar new];
+  self.toolbar.barStyle = UIBarStyleBlack;
+  self.toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+
+  [self addSubview:self.toolbar];
+
+  CGSize size = [self.toolbar sizeThatFits:CGSizeZero];
+  self.frame = self.toolbar.frame = CGRectMake(0, 0, size.width, size.height);
+
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(textFieldOrTextViewDidBeginEditing:)
+                                               name:UITextFieldTextDidBeginEditingNotification
+                                             object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(textFieldOrTextViewDidBeginEditing:)
+                                               name:UITextViewTextDidBeginEditingNotification
+                                             object:nil];
+
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(keyboardWillShow:)
+                                               name:UIKeyboardWillShowNotification
+                                             object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(keyboardWillHide:)
+                                               name:UIKeyboardWillHideNotification
+                                             object:nil];
+
+  self.originalFormViewFrame = CGRectZero;
+}
+
 - (void) dealloc {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void) setDelegate:(id<JCDefaultFormInputAccessoryViewDelegate>)delegate {
+  _delegate = delegate;
+  if (delegate) {
+    self.toolbar.items = [delegate toolbarItemsForDefaultFormInputAccessoryView:self];
+  } else {
+    self.toolbar.items = @[];
+  }
+}
+
+- (NSArray*) toolbarItemsForDefaultFormInputAccessoryView:(JCDefaultFormInputAccessoryView*)accessoryView {
+  UISegmentedControl* previousNextControl = [[UISegmentedControl alloc] initWithItems:@[@"Previous", @"Next"]];
+  previousNextControl.segmentedControlStyle = UISegmentedControlStyleBar;
+  previousNextControl.momentary = YES;
+  [previousNextControl addTarget:accessoryView action:@selector(previousNextControlValueChanged:) forControlEvents:UIControlEventValueChanged];
+
+  return @[
+    [[UIBarButtonItem alloc] initWithCustomView:previousNextControl],
+    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
+    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:accessoryView action:@selector(doneButtonTapped:)]
+   ];
 }
 
 - (void) textFieldOrTextViewDidBeginEditing:(NSNotification*)notification {

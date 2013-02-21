@@ -24,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C471187516D677970005F3F4 /* JCDefaultFormInputAccessoryViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = JCDefaultFormInputAccessoryViewDelegate.h; path = ../../Library/JCDefaultFormInputAccessoryViewDelegate.h; sourceTree = "<group>"; };
 		C4DA7B98167644000039800F /* JCDefaultFormInputAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCDefaultFormInputAccessoryView.h; path = ../../Library/JCDefaultFormInputAccessoryView.h; sourceTree = "<group>"; };
 		C4DA7B99167644000039800F /* JCDefaultFormInputAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JCDefaultFormInputAccessoryView.m; path = ../../Library/JCDefaultFormInputAccessoryView.m; sourceTree = "<group>"; };
 		C4DA7B9A167644000039800F /* JCDefaultFormInputAccessoryViewResponderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCDefaultFormInputAccessoryViewResponderItem.h; path = ../../Library/JCDefaultFormInputAccessoryViewResponderItem.h; sourceTree = "<group>"; };
@@ -123,6 +124,7 @@
 				C4DA7B99167644000039800F /* JCDefaultFormInputAccessoryView.m */,
 				C4DA7B9A167644000039800F /* JCDefaultFormInputAccessoryViewResponderItem.h */,
 				C4DA7B9B167644000039800F /* JCDefaultFormInputAccessoryViewResponderItem.m */,
+				C471187516D677970005F3F4 /* JCDefaultFormInputAccessoryViewDelegate.h */,
 			);
 			name = Library;
 			sourceTree = "<group>";

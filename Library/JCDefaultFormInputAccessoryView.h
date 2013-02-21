@@ -1,13 +1,17 @@
 #import <UIKit/UIKit.h>
+#import "JCDefaultFormInputAccessoryViewDelegate.h"
 
 typedef enum JCDefaultFormInputAccessoryViewDirectionButton {
   JCDefaultFormInputAccessoryViewDirectionButtonPrevious = 1,
   JCDefaultFormInputAccessoryViewDirectionButtonNext
 } JCDefaultFormInputAccessoryViewDirectionButton;
 
-@interface JCDefaultFormInputAccessoryView : UIView
+@interface JCDefaultFormInputAccessoryView : UIView <JCDefaultFormInputAccessoryViewDelegate>
 
 + (id) defaultFormInputAccessoryView;
+- (id) initWithDelegate:(id<JCDefaultFormInputAccessoryViewDelegate>)delegate;
+
+@property (weak, nonatomic) id<JCDefaultFormInputAccessoryViewDelegate> delegate;
 
 /** List of input views/descriptors.
 

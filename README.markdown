@@ -20,6 +20,8 @@ A working sample iOS Xcode project is available in the `Demo` directory.
 Usage?
 ----
 
+Note: If you'd like to configure your own toolbar buttons (say, for example, to take advantage of this projects view scrolling code without the next/previous buttons), you can configure the accessory view via its `delegate`. The accessory view itself adopts the delegate protocol and is the default delegate so that a custom delegate is not necessary.
+
     #import "JCDefaultFormInputAccessoryView.h"
     #import "JCDefaultFormInputAccessoryViewResponderItem.h"
     
