@@ -401,8 +401,11 @@ CGAffineTransform affineTransformForInterfaceOrientationAndWindow(UIInterfaceOri
     dy = keyboardRect.origin.y - (containingRect.origin.y + containingRect.size.height);
   }
 
+  CGPoint dOrigin = CGPointApplyAffineTransform(CGPointMake(0.0, dy), containingView.transform);
+
   CGRect containingFrame = containingView.frame;
-  containingFrame.origin.y += dy;
+  containingFrame.origin.x += dOrigin.x;
+  containingFrame.origin.y += dOrigin.y;
 
   [UIView beginAnimations:nil context:NULL];
   [UIView setAnimationBeginsFromCurrentState:YES];
