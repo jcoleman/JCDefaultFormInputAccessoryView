@@ -125,8 +125,23 @@ CGAffineTransform affineTransformForInterfaceOrientationAndWindow(UIInterfaceOri
 
   if (self.currentlySelectedResponder.respondingViewGetter
       && self.currentlySelectedResponder.respondingViewGetter() == respondingView) {
+    // Re-beginning editing on the currently selected input. Ignore.
     return;
   } else {
+    if (self.currentlySelectedResponder) {
+      // Transition from one input to a different one.
+      __weak JCDefaultFormInputAccessoryView* weakSelf = self;
+      dispatch_async(dispatch_get_main_queue(), ^{
+        // We can't trust the ordering of notifications (in current iOS
+        // the UITextFieldTextDidBeginEditingNotification is sent before
+        // UIKeyboardWillShowNotification but UITextViewTextDidBeginEditingNotification
+        // is sent after UIKeyboardWillShowNotification.
+        // So here we just use dispatch_async to ensure we get fired after
+        // everything's happened.
+        [weakSelf ensureCurrentResponderIsVisible];
+      });
+    }
+
     [self setCurrentlySelectedResponderForInputView:respondingView];
   }
 }
@@ -161,6 +176,8 @@ CGAffineTransform affineTransformForInterfaceOrientationAndWindow(UIInterfaceOri
 }
 
 - (void) keyboardWillHide:(NSNotification*)notification {
+  self.currentlySelectedResponder = nil;
+
   if (!self.formView.window) {
     return;
   }
