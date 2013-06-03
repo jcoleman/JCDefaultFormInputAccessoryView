@@ -1,6 +1,33 @@
 #import "JCDefaultFormInputAccessoryView.h"
 #import "JCDefaultFormInputAccessoryViewResponderItem.h"
 
+CGAffineTransform affineTransformForInterfaceOrientationAndWindow(UIInterfaceOrientation orientation, UIWindow* window) {
+  CGAffineTransform transform;
+
+  switch (orientation) {
+    case UIInterfaceOrientationPortrait:
+      transform = CGAffineTransformIdentity;
+      break;
+
+    case UIInterfaceOrientationPortraitUpsideDown:
+      transform = CGAffineTransformMake(-1, 0, 0, -1, 0, 0);
+      transform = CGAffineTransformTranslate(transform, -window.frame.size.width, -window.frame.size.height);
+      break;
+
+    case UIInterfaceOrientationLandscapeLeft:
+      transform = CGAffineTransformMake(0, 1, -1, 0, 0, 0);
+      transform = CGAffineTransformTranslate(transform, 0, -window.frame.size.height);
+      break;
+
+    case UIInterfaceOrientationLandscapeRight:
+      transform = CGAffineTransformMake(0, -1, 1, 0, 0, 0);
+      transform = CGAffineTransformTranslate(transform, -window.frame.size.width, 0);
+      break;
+  }
+
+  return transform;
+}
+
 @interface JCDefaultFormInputAccessoryView ()
 
 @property (weak, nonatomic) JCDefaultFormInputAccessoryViewResponderItem* currentlySelectedResponder;
@@ -328,10 +355,14 @@ static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
 - (void) ensureResponderView:(UIView*)responder
   isVisibleForKeyboardHeight:(CGFloat)keyboardHeight
                bySlidingView:(UIView*)containingView {
-  // Code adapted from http://www.cocoawithlove.com/2008/10/sliding-uitextfields-around-to-avoid.html
   UIWindow* window = containingView.window;
-  CGRect responderRect = [window convertRect:responder.bounds fromView:responder];
-  CGRect containingRect = [window convertRect:containingView.bounds fromView:containingView];
+
+  UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+  CGAffineTransform orientationTransform = affineTransformForInterfaceOrientationAndWindow(orientation, window);
+
+  // Code adapted from http://www.cocoawithlove.com/2008/10/sliding-uitextfields-around-to-avoid.html
+  CGRect responderRect = CGRectApplyAffineTransform([window convertRect:responder.bounds fromView:responder], orientationTransform);
+  CGRect containingRect = CGRectApplyAffineTransform([window convertRect:containingView.bounds fromView:containingView], orientationTransform);
 
   CGFloat midline = responderRect.origin.y + (responderRect.size.height / 2);
   CGFloat numerator = midline - containingRect.origin.y - (MINIMUM_SCROLL_FRACTION * containingRect.size.height);
@@ -345,7 +376,6 @@ static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
   }
 
   CGFloat windowHeight;
-  UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
   if (UIInterfaceOrientationIsPortrait(orientation)) {
     windowHeight = window.frame.size.height;
   } else {
