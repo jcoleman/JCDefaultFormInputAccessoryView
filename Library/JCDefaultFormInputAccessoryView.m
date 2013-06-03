@@ -366,48 +366,43 @@ CGAffineTransform affineTransformForInterfaceOrientationAndWindow(UIInterfaceOri
   }
 }
 
-static const CGFloat MINIMUM_SCROLL_FRACTION = 0.2;
-static const CGFloat MAXIMUM_SCROLL_FRACTION = 0.8;
-
+// We assume that this method is called to act an unmodified containingView
+// frame. That is, it shouldn't be called when the current containingView frame
+// is currently the result of this method's calculations.
 - (void) ensureResponderView:(UIView*)responder
   isVisibleForKeyboardHeight:(CGFloat)keyboardHeight
                bySlidingView:(UIView*)containingView {
-  UIWindow* window = containingView.window;
 
+  UIWindow* window = containingView.window;
   UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
   CGAffineTransform orientationTransform = affineTransformForInterfaceOrientationAndWindow(orientation, window);
 
-  // Code adapted from http://www.cocoawithlove.com/2008/10/sliding-uitextfields-around-to-avoid.html
   CGRect responderRect = CGRectApplyAffineTransform([window convertRect:responder.bounds fromView:responder], orientationTransform);
   CGRect containingRect = CGRectApplyAffineTransform([window convertRect:containingView.bounds fromView:containingView], orientationTransform);
+  CGRect keyboardRect = CGRectApplyAffineTransform(self.keyboardDisplayedFrame, orientationTransform);
 
-  CGFloat midline = responderRect.origin.y + (responderRect.size.height / 2);
-  CGFloat numerator = midline - containingRect.origin.y - (MINIMUM_SCROLL_FRACTION * containingRect.size.height);
-  CGFloat denominator = (MAXIMUM_SCROLL_FRACTION - MINIMUM_SCROLL_FRACTION) * containingRect.size.height;
-  CGFloat heightFraction = numerator / denominator;
+  // Calculate where the responding view would sit exactly halfway between the
+  // top of the containing view and the top of the keyboard view.
+  CGFloat midline = (keyboardRect.origin.y - containingRect.origin.y) / 2.0;
+  CGFloat calculatedResponderY = midline - floorf(responderRect.size.height / 2.0);
+  CGFloat dy = calculatedResponderY - responderRect.origin.y;    
 
-  if (heightFraction < 0.0) {
-    heightFraction = 0.0;
-  } else if (heightFraction > 1.0) {
-    heightFraction = 1.0;
+  // Bound the calculated d-y  value so that it doesn't cause the containing
+  // view to be positioned in such a way that it would leave empty space on
+  // the screen.
+  if (dy > 0.0) {
+    // Since we assume that we're never acting on an already adjusted frame,
+    // then we will never have a postive d-y value since that would move the
+    // containing view down past where it already begins.
+    dy = 0.0;
+  } else if ((containingRect.origin.y + containingRect.size.height + dy) < keyboardRect.origin.y) {
+    // The containing view should never be moved up in such a way that its
+    // bottom would be above the top of the keyboard.
+    dy = keyboardRect.origin.y - (containingRect.origin.y + containingRect.size.height);
   }
-
-  CGFloat windowHeight;
-  if (UIInterfaceOrientationIsPortrait(orientation)) {
-    windowHeight = window.frame.size.height;
-  } else {
-    windowHeight = window.frame.size.width;
-  }
-
-  CGFloat containingViewHeightFromWindowTop = (containingRect.size.height + containingRect.origin.y);
-  CGFloat containingViewBottomOffset = 0;
-  if (containingViewHeightFromWindowTop < windowHeight) {
-    containingViewBottomOffset = windowHeight - containingViewHeightFromWindowTop;
-  }
-  CGFloat animatedDistance = (keyboardHeight - containingViewBottomOffset) * heightFraction;
 
   CGRect containingFrame = containingView.frame;
-  containingFrame.origin.y -= animatedDistance;
+  containingFrame.origin.y += dy;
 
   [UIView beginAnimations:nil context:NULL];
   [UIView setAnimationBeginsFromCurrentState:YES];
