@@ -31,6 +31,7 @@ CGAffineTransform affineTransformForInterfaceOrientationAndWindow(UIInterfaceOri
 @interface JCDefaultFormInputAccessoryView ()
 
 @property (weak, nonatomic) JCDefaultFormInputAccessoryViewResponderItem* currentlySelectedResponder;
+@property (weak, nonatomic) JCDefaultFormInputAccessoryViewResponderItem* responderSelectedOnWillHideKeyboard;
 
 @property (nonatomic) JCDefaultFormInputAccessoryViewDirectionButton lastDirectionButtonTapped;
 
@@ -39,6 +40,7 @@ CGAffineTransform affineTransformForInterfaceOrientationAndWindow(UIInterfaceOri
 @property (nonatomic) CGFloat keyboardAnimationDuration;
 @property (nonatomic) CGRect keyboardDisplayedFrame;
 @property (nonatomic) UIViewAnimationCurve keyboardAnimationCurve;
+@property (nonatomic) BOOL keyboardShown;
 
 @end
 
@@ -89,6 +91,10 @@ CGAffineTransform affineTransformForInterfaceOrientationAndWindow(UIInterfaceOri
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(keyboardWillHide:)
                                                name:UIKeyboardWillHideNotification
+                                             object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(keyboardDidHide:)
+                                               name:UIKeyboardDidHideNotification
                                              object:nil];
 
   self.originalFormViewFrame = CGRectZero;
@@ -147,6 +153,8 @@ CGAffineTransform affineTransformForInterfaceOrientationAndWindow(UIInterfaceOri
 }
 
 - (void) keyboardWillShow:(NSNotification*)notification {
+  self.keyboardShown = YES;
+
   if (!self.formView.window) {
     return;
   }
@@ -176,22 +184,30 @@ CGAffineTransform affineTransformForInterfaceOrientationAndWindow(UIInterfaceOri
 }
 
 - (void) keyboardWillHide:(NSNotification*)notification {
-  self.currentlySelectedResponder = nil;
+  self.responderSelectedOnWillHideKeyboard = self.currentlySelectedResponder;
 
-  if (!self.formView.window) {
-    return;
+  if (self.formView.window) {
+    if (self.formView && !CGRectEqualToRect(self.originalFormViewFrame, CGRectZero)) {
+      [UIView beginAnimations:nil context:NULL];
+      [UIView setAnimationBeginsFromCurrentState:YES];
+      [UIView setAnimationCurve:self.keyboardAnimationCurve];
+      [UIView setAnimationDuration:self.keyboardAnimationDuration];
+      [self.formView setFrame:self.originalFormViewFrame];
+      [UIView commitAnimations];
+    }
+
+    self.originalFormViewFrame = CGRectZero;
   }
 
-  if (self.formView && !CGRectEqualToRect(self.originalFormViewFrame, CGRectZero)) {
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationCurve:self.keyboardAnimationCurve];
-    [UIView setAnimationDuration:self.keyboardAnimationDuration];
-    [self.formView setFrame:self.originalFormViewFrame];
-    [UIView commitAnimations];
-  }
+  self.keyboardShown = NO;
+}
 
-  self.originalFormViewFrame = CGRectZero;
+- (void) keyboardDidHide:(NSNotification*)notification {
+  UIResponder* firstResponder = [self findFirstResponderInView:self.formView];
+  if (!firstResponder && self.responderSelectedOnWillHideKeyboard == self.currentlySelectedResponder) {
+    self.currentlySelectedResponder = nil;
+  }
+  self.responderSelectedOnWillHideKeyboard = nil;
 }
 
 - (void) previousNextControlValueChanged:(UISegmentedControl*)previousNextControl {
@@ -349,7 +365,7 @@ CGAffineTransform affineTransformForInterfaceOrientationAndWindow(UIInterfaceOri
 }
 
 - (void) ensureCurrentResponderIsVisible {
-  if (self.formView && self.formView.window) {
+  if (self.self.keyboardShown && self.formView && self.formView.window) {
     UIView* respondingView;
     if (self.currentlySelectedResponder.respondingViewGetter) {
       respondingView = self.currentlySelectedResponder.respondingViewGetter();
