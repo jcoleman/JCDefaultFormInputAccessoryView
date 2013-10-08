@@ -66,6 +66,57 @@ Note: If you'd like to configure your own toolbar buttons (say, for example, to 
     @end
     
 
+Help! The Keyboard Doesn't Dismiss: Modal Form Sheets on the iPad
+-------------------------------------------------------
+
+iOS intentionally does not hide the keyboard on the iPad when a modal form sheet is displayed even if the text input has resigned first responder status. This is by design according to filed RADARs. However, there is a way to override this behavior: the presented UIViewController in the modal form sheet needs to return `NO` from `- (BOOL) disablesAutomaticKeyboardDismissal`. This is not a settable property, so you can override it on all UIViewController instances via a category, or use the category shown below to allow setting the value on a per-instance level. Note: if you use this category, make sure you set the overridden value on the base controller being presented in the modal, even if that base controller is a navigation controller.
+
+UIViewController+JCViewControllerHelpers.h
+
+    #import <UIKit/UIKit.h>
+    
+    @interface UIViewController (JCViewControllerHelpers)
+    
+    - (void) setDisablesAutomaticKeyboardDismissal:(BOOL)disableDismissal;
+    
+    @end
+
+UIViewController+JCViewControllerHelpers.m
+
+    #import "UIViewController+KCViewControllerHelpers.h"
+    #import <objc/runtime.h>
+    
+    @implementation UIViewController (JCViewControllerHelpers)
+    
+    + (void) load {
+      // Swizzling code from http://stackoverflow.com/a/5372042/1114761
+      SEL originalSelector = @selector(disablesAutomaticKeyboardDismissal);
+      SEL overrideSelector = @selector(JC_disablesAutomaticKeyboardDismissal);
+      Method originalMethod = class_getInstanceMethod(self, originalSelector);
+      Method overrideMethod = class_getInstanceMethod(self, overrideSelector);
+      if (class_addMethod(self, originalSelector, method_getImplementation(overrideMethod), method_getTypeEncoding(overrideMethod))) {
+        class_replaceMethod(self, overrideSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
+      } else {
+        method_exchangeImplementations(originalMethod, overrideMethod);
+      }
+    }
+    
+    static char disablesAutomaticKeyboardDismissalKey;
+    - (void) setDisablesAutomaticKeyboardDismissal:(BOOL)disableDismissal {
+      objc_setAssociatedObject(self, &disablesAutomaticKeyboardDismissalKey, @(disableDismissal), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    
+    - (BOOL) JC_disablesAutomaticKeyboardDismissal {
+      NSNumber* overriddenValue = objc_getAssociatedObject(self, &disablesAutomaticKeyboardDismissalKey);
+      if (overriddenValue) {
+        return [overriddenValue boolValue];
+      } else {
+        return self.disablesAutomaticKeyboardDismissal;
+      }
+    }
+    
+    @end
+
 Installation?
 -------------
 
