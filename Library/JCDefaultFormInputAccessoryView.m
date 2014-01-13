@@ -115,7 +115,9 @@ CGAffineTransform affineTransformForInterfaceOrientationAndWindow(UIInterfaceOri
 
 - (NSArray*) toolbarItemsForDefaultFormInputAccessoryView:(JCDefaultFormInputAccessoryView*)accessoryView {
   UISegmentedControl* previousNextControl = [[UISegmentedControl alloc] initWithItems:@[@"Previous", @"Next"]];
+#if !defined(__IPHONE_7_0) || __IPHONE_OS_VERSION_MAX_ALLOWED < __IPHONE_7_0
   previousNextControl.segmentedControlStyle = UISegmentedControlStyleBar;
+#endif
   previousNextControl.momentary = YES;
   [previousNextControl addTarget:accessoryView action:@selector(previousNextControlValueChanged:) forControlEvents:UIControlEventValueChanged];
 
